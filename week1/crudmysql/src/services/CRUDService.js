@@ -42,9 +42,9 @@ let hashUserPassword = (password) => {
 let getAllUser = () => {
     return new Promise(async (resolve, reject) => { // dùng Promise đảm bảo luôn trả kết quả, trong xử lý bất đồng bộ
         try {
-            let users = await db.User.findAll({
-                raw: true, // hiện dữ liệu gốc
-            });
+            console.log('Attempting to fetch all users...');
+            let users = await db.User.findAll({ raw: true });
+            console.log('Fetched users:', users);
             resolve(users); // hàm trả về kết quả
         } catch (e) {
             reject(e);

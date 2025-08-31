@@ -1,9 +1,8 @@
 'use strict';
 
-import Sequelize from 'sequelize'; // Import toàn bộ Sequelize
-
+import {Model} from 'sequelize';
 export default (sequelize, DataTypes) => {
-    class User extends Sequelize.Model { // Kế thừa từ Sequelize.Model
+    class User extends Model { // Kế thừa từ Sequelize.Model
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
