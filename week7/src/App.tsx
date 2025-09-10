@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
+import { useCart } from './core/useCart';
+import { mockItems } from './mockItem';
+import { CartItemCard } from './ui/CartItemCart';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { items, add, update, remove, totalQty, totalPrice } = useCart(mockItems);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="p-4 space-y-3">
+      <div className="flex-row">
+        {items.map(it => (
+          <CartItemCard
+            key={it.id}
+            item={it}
+            onUpdateQty={q => update(it.id, { qty: q })}
+            onRemove={() => remove(it.id)}
+          />
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <div className="font-semibold">
+        Total items: {totalQty} • Total price: ${totalPrice.toFixed(2)}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <button
+        className="px-4 py-2 bg-blue-500 text-white rounded-xl"
+        onClick={() => add({ id: "p5", name: "Bluetooth Speaker", price: 35, qty: 1 })}
+      >
+        Add Speaker
+      </button>
+    </div>
+  );
 }
 
 export default App
